@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^stopdetection\.Rproj$
+^LICENSE\.md$
+^README\.Rmd$
