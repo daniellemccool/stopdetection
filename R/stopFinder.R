@@ -61,5 +61,5 @@ stopFinder <- function(traj, thetaD, thetaT) {
     set(traj, i = i:j, j = "stop_id", value = i)
   # traj[i:j, stop_id := i]
 
-  # traj
+  df
 }
