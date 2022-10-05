@@ -1,11 +1,11 @@
 #' Find an initial set of stops given timestamped locations
 #'
-#' Clusters trajectories spatiotemporally based on a user-provided distance
-#' radius parameter and time parameter. Points are evaluated sequentially to
-#' determine whether they meet the criteria for being a stop (at least
-#' \code{thetaT} time spent within \code{thetaD} distance of the initiating
-#' location). Points must therefore have a timestamp, longitude and latitude
-#' column.
+#' Modifies by reference a data.table of trajectories, which are clustered
+#' spatiotemporally based on a user-provided distance radius parameter and time
+#' parameter. Points are evaluated sequentially to determine whether they meet
+#' the criteria for being a stop (at least \code{thetaT} time spent within
+#' \code{thetaD} distance of the initiating location). Points must therefore
+#' have a timestamp, longitude and latitude column.
 #'
 #' This function has been optimized for simulation studies where it will be
 #' called repeatedly. Because of this, all error-handling is done prior to this
@@ -61,5 +61,4 @@ stopFinder <- function(traj, thetaD, thetaT) {
     set(traj, i = i:j, j = "stop_id", value = i)
   # traj[i:j, stop_id := i]
 
-  df
 }
