@@ -25,18 +25,18 @@ stopMerger <- function(events, thetaD) {
 
   events[,
          `:=`(
-           new_stop_id = state_id - cumsum(!is.na(dist_prev_stop) &
+           new_state_id = state_id - cumsum(!is.na(dist_prev_stop) &
                                              dist_prev_stop < thetaD)
          )]
   # events[, new_stop_id := state_id - cumsum(!is.na(dist_prev_stop) & dist_prev_stop < thetaD)]
 
-  events[state == "stopped",
-             `:=`(
-               newmeanlon = stats::weighted.mean(meanlon, ts),
-               newmeanlat = stats::weighted.mean(meanlat, ts)
-             )]
-}
+  # events[state == "stopped",
+  #            `:=`(
+  #              newmeanlon = stats::weighted.mean(meanlon, end_time - begin_time),
+  #              newmeanlat = stats::weighted.mean(meanlat, ts)
+  #            ), new_state_id]
 
+}
 
 
 

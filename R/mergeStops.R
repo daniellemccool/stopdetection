@@ -1,9 +1,12 @@
-mergeStops <- function(res, events, thetaD = 200){
-  stopMerger(events, 200)
-  moveMerger(events)
+mergeStops <- function(res, events, thetaD = 200, small_track_action = "merge", ...){
+  stopMerger(events, thetaD = thetaD)
+  moveMerger(events, action = small_track_action)
   # events[is.na(new_stop_id), new_stop_id := state_id]
-  res[events, `:=`(state_id = i.new_stop_id,
-                   within_stop = i.new_within_stop), on = .(state_id)]
+  res[events, `:=`(state_id = i.new_state_id,
+                   state = i_new_state), on = .(state_id)]
+  #
+  # res[events, `:=`(state_id = i.new_stop_id,
+  #                  within_stop = i.new_within_stop), on = .(state_id)]
   # set(res,
   #     j = "within_stop",
   #     value = !is.na(res[["stop_id"]]))

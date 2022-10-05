@@ -6,12 +6,12 @@ returnStateEvents <- function(dt) {
             "move_id"),
       value = list(
         splitDiffTime(res[["timestamp"]]),
-        rleid(res[["stop_id"]]),
+        rleid(res[["stop_initiation_idx"]]),
         NA_integer_
       ))
 
 
-  is_stop <- !is.na(res[["stop_id"]])
+  is_stop <- !is.na(res[["stop_initiation_idx"]])
   move_idx <- which(!is_stop)
   stop_idx <- which(is_stop)
 
@@ -53,6 +53,7 @@ returnStateEvents <- function(dt) {
 
 
   unique(res[, .(
+    state,
     meanlat,
     meanlon,
     begin_time = timestamp[1L],
@@ -62,6 +63,7 @@ returnStateEvents <- function(dt) {
     sdlat,
     stop_id,
     move_id,
+    stop_initiation_idx,
     n_locations = .N
   ), state_id])
 }

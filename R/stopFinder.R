@@ -17,7 +17,7 @@
 #' @param thetaD The distance parameter, represents a radius in meters for establishing how much area a stop can encompass.
 #' @param thetaT The time parameter, representing the length of time that must be spent within the stop area before being considered a stop.
 #'
-#' @return traj is modified by reference to include a column stop_id, which is NA for locations not belonging to a stop, and equal to the row number initiating the stop it belongs to otherwise.
+#' @return traj is modified by reference to include a column stop_initiation_idx, which is NA for locations not belonging to a stop, and equal to the row number initiating the stop it belongs to otherwise.
 #' @export
 #'
 #' @examples
@@ -25,7 +25,7 @@
 #'
 stopFinder <- function(traj, thetaD, thetaT) {
   set(traj,
-      j = "stop_id",
+      j = "stop_initiation_idx",
       value = NA_integer_)
   # traj[, stop_id := NA_integer_]
   mat <- as.matrix(traj[, .(longitude, latitude, as.numeric(timestamp))])
@@ -45,7 +45,7 @@ stopFinder <- function(traj, thetaD, thetaT) {
         time <- mat[j, 3] - mat[i, 3]
         # time <- diff(mat[c(i, j), 3])
         if ((time >= thetaT)) {
-          set(traj, i = i:j, j = "stop_id", value = i)
+          set(traj, i = i:j, j = "stop_initiation_idx", value = i)
           # traj[i:j, stop_id := i]
         }
         i <- j
@@ -58,7 +58,7 @@ stopFinder <- function(traj, thetaD, thetaT) {
 
   # Capture the last stop if it's longer than time window
   if (mat[j, 3] - mat[i, 3] >= thetaT)
-    set(traj, i = i:j, j = "stop_id", value = i)
+    set(traj, i = i:j, j = "stop_initiation_idx", value = i)
   # traj[i:j, stop_id := i]
 
 }
