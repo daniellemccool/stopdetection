@@ -14,7 +14,7 @@ stopFinder(traj, thetaD, thetaT)
 \item{thetaT}{The time parameter, representing the length of time that must be spent within the stop area before being considered a stop.}
 }
 \value{
-traj is modified by reference to include a column stop_id, which is NA for locations not belonging to a stop, and equal to the row number initiating the stop it belongs to otherwise.
+traj is modified by reference to include a column stop_initiation_idx, which is NA for locations not belonging to a stop, and equal to the row number initiating the stop it belongs to otherwise.
 }
 \description{
 Modifies by reference a data.table of trajectories, which are clustered

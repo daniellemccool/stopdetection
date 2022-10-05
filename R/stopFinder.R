@@ -61,4 +61,12 @@ stopFinder <- function(traj, thetaD, thetaT) {
     set(traj, i = i:j, j = "stop_initiation_idx", value = i)
   # traj[i:j, stop_id := i]
 
+  set(traj,
+      j = c("timedif",
+            "state_id",
+            "state"),
+      value = list(
+        splitDiffTime(traj[["timestamp"]]),
+        rleid(traj[["stop_initiation_idx"]]),
+        fifelse(is.na(traj[["stop_initiation_idx"]]), "moving", "stopped")))
 }

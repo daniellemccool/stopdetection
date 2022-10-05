@@ -1,18 +1,18 @@
 returnStateEvents <- function(dt) {
   res <- copy(dt)
-  set(res,
-      j = c("timedif",
-            "state_id",
-            "move_id"),
-      value = list(
-        splitDiffTime(res[["timestamp"]]),
-        rleid(res[["stop_initiation_idx"]]),
-        NA_integer_
-      ))
+  # set(res,
+  #     j = c("timedif",
+  #           "state_id",
+  #           "move_id"),
+  #     value = list(
+  #       splitDiffTime(res[["timestamp"]]),
+  #       rleid(res[["stop_initiation_idx"]]),
+  #       NA_integer_
+  #     ))
 
-
-  is_stop <- !is.na(res[["stop_initiation_idx"]])
-  move_idx <- which(!is_stop)
+  is_stop <- res[["state"]] == "stopped"
+  is_move <- res[["state"]] == "moving"
+  move_idx <- which(is_move)
   stop_idx <- which(is_stop)
 
   set(res,
@@ -26,31 +26,39 @@ returnStateEvents <- function(dt) {
       value = list(rleid(res[["state_id"]][stop_idx]), "stopped"))
 
 
-  set(res,
-      j = c("prev_lon",
-            "prev_lat"),
-      value = list(shift(res[["longitude"]]),
-                   shift(res[["latitude"]])))
+  # set(res,
+  #     j = c("prev_lon",
+  #           "prev_lat"),
+  #     value = list(shift(res[["longitude"]]),
+  #                  shift(res[["latitude"]])))
+
+  # res[(move_idx), raw_travel_dist := sum(
+  #   geodist::geodist_vec(
+  #     prev_lon,
+  #     prev_lat,
+  #     longitude,
+  #     latitude,
+  #     paired = TRUE,
+  #     measure = "haversine"
+  #   ),
+  #   na.rm = TRUE
+  # ), move_id]
+  #
 
   res[(move_idx), raw_travel_dist := sum(
-    geodist::geodist_vec(
-      prev_lon,
-      prev_lat,
+    geodist_vec(
       longitude,
       latitude,
-      paired = TRUE,
+      sequential = TRUE,
       measure = "haversine"
-    ),
-    na.rm = TRUE
-  ), move_id]
+    )), move_id]
 
+  res[state != "excluded",
+      `:=`(timedif = splitDiffTime(timestamp))]
 
-
-  res[(stop_idx), `:=`(meanlon = stats::weighted.mean(longitude, timedif),
-                       meanlat = stats::weighted.mean(latitude, timedif),
-                       sdlon = sd(longitude),
-                       sdlat = sd(latitude)), state_id]
-
+  res[(stop_idx),
+      `:=`(meanlon = weighted.mean(longitude, timedif),
+           meanlat = weighted.mean(latitude, timedif)), state_id]
 
   unique(res[, .(
     state,
@@ -59,11 +67,9 @@ returnStateEvents <- function(dt) {
     begin_time = timestamp[1L],
     end_time = timestamp[.N],
     raw_travel_dist,
-    sdlon,
-    sdlat,
     stop_id,
     move_id,
-    stop_initiation_idx,
+    # stop_initiation_idx,
     n_locations = .N
   ), state_id])
 }

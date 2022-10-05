@@ -14,10 +14,9 @@
 #' @param max_time Maximum time elapsed (seconds) for a track to be mergeable. Set to Inf to not consider.
 #' @param max_dist Maximum distance (meters) traveled while on track to be mergeable. Set to Inf to not consider.
 #'
-#' @return Modifies events by reference
-#' @export
+#' @return Modifies events data.table by reference
 
-moveMerger <- function(events, action = "merge", max_locs = 1, max_time = 600, max_dist = 100){
+moveMerger <- function(events, small_track_action = "merge", max_locs = 1, max_time = 600, max_dist = 100){
   # condition <- events[n_locations <= max_locs & ts <= max_time, which = TRUE]
   # set(events,
   #     j = c("new_stop_id",
@@ -30,9 +29,13 @@ moveMerger <- function(events, action = "merge", max_locs = 1, max_time = 600, m
   #     value = events[["new_stop_id"]]
   #     )
 
-  events[, mergeable := n_locations <= max_locs & end_time - begin_time <= max_time & raw_travel_dist <= max_dist]
+  events[, mergeable := FALSE]
+  events[state == "moving",
+         mergeable := n_locations <= max_locs &
+           ((end_time - begin_time) <= max_time) &
+           raw_travel_dist <= max_dist]
   events[, `:=`(
-    new_state_id = state_id - cumsum(mergeable),
+    new_state_id = new_state_id - cumsum(mergeable),
     new_state = state
   )]
 
@@ -44,7 +47,7 @@ moveMerger <- function(events, action = "merge", max_locs = 1, max_time = 600, m
     events[mergeable == TRUE,
            `:=`(new_state = "excluded",
                 new_state_id = NA)]
-    events[, mergeable := NULL]
+    # events[, mergeable := NULL]
   }
   events[]
 }
