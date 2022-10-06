@@ -1,6 +1,6 @@
 #' Merge Stops and Clean Tracks
 #'
-#' Calls \code(stopMerger) and then \code{moveMerger}
+#' Calls \code{stopMerger} and then \code{moveMerger}
 #'
 #' @param events data.table from \code{returnStateEvents}
 #' @param thetaD how many meters away may stops be and still be merged
@@ -10,7 +10,7 @@
 #' @return update events data.table by reference
 mergeStopsAndCleanTracks <- function(events, thetaD, small_track_action = "merge", ...) {
   stopMerger(events, thetaD = thetaD)
-  moveMerger(events, small_track_action = small_track_action)
+  moveMerger(events, small_track_action = small_track_action, ...)
 }
 
 updateDataWithEvents <- function(res, events){
@@ -44,16 +44,17 @@ updateDataWithEvents <- function(res, events){
 #' @param max_merges failsafe to prevent infinite loop
 #' @param thetaD how many meters away may stops be and still be merged
 #' @param small_track_action one of "merge" or "exclude" for short tracks
+#' @param ... additional optional arguments passed to moveMerger including max_locs, max_time and max_dist
 #'
 #' @return Modifies res data.table by reference
 #' @export
-mergingCycle <- function(res, max_merges = Inf, thetaD = 200, small_track_action = "merge"){
+mergingCycle <- function(res, max_merges = Inf, thetaD = 200, small_track_action = "merge", ...){
   i       <- 1
   changed <- TRUE
 
   while (i <= max_merges && changed == TRUE) {
     events <- returnStateEvents(res)
-    mergeStopsAndCleanTracks(events = events, thetaD = thetaD, small_track_action = small_track_action)
+    mergeStopsAndCleanTracks(events = events, thetaD = thetaD, small_track_action = small_track_action, ...)
     changed <- events[state != "excluded", any(state_id != new_state_id)]
     updateDataWithEvents(res, events)
     i <- i + 1

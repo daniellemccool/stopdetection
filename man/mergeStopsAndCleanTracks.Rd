@@ -19,5 +19,5 @@ mergeStopsAndCleanTracks(events, thetaD, small_track_action = "merge", ...)
 update events data.table by reference
 }
 \description{
-Calls \code(stopMerger) and then \code{moveMerger}
+Calls \code{stopMerger} and then \code{moveMerger}
 }

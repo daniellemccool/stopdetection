@@ -1,7 +1,4 @@
-context("moveMerger")
-
 # set up data requiring a move merge
-
 
 testevents <-
   data.table(
@@ -12,7 +9,9 @@ testevents <-
     newmeanlat = c(NA, 52.09259, NA, 52.09259, 52.09256, NA, 52.09258, 52.098),
     newmeanlon = c(NA, 5.135536, NA, 5.135536, 5.135535, NA, 5.135534, 5.138),
     new_state_id = 1:8,
-    ts = c(27, 441, 15, 441, 441, 30, 441, 441),
+    begin_time = c(1, 28, 469, 484, 925, 1366, 1396, 1837),
+    end_time = c(27, 468, 483, 924, 1365, 1395, 1836, 2277),
+    raw_travel_dist = c(100, NA, 100, NA, NA, 20, NA, NA),
     n_locations = c(11, 14, 2, 14, 14, 1, 14, 2)
   )
 

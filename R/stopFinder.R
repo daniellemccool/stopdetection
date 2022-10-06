@@ -1,11 +1,11 @@
 #' Find an initial set of stops given timestamped locations
 #'
-#' Modifies by reference a data.table of trajectories, which are clustered
-#' spatiotemporally based on a user-provided distance radius parameter and time
-#' parameter. Points are evaluated sequentially to determine whether they meet
-#' the criteria for being a stop (at least \code{thetaT} time spent within
-#' \code{thetaD} distance of the initiating location). Points must therefore
-#' have a timestamp, longitude and latitude column.
+#' \code{stopFinder} modifies by reference a data.table of trajectories, which
+#' are clustered spatiotemporally based on a user-provided distance radius
+#' parameter and time parameter. Points are evaluated sequentially to determine
+#' whether they meet the criteria for being a stop (at least \code{thetaT} time
+#' spent within \code{thetaD} distance of the initiating location). Points must
+#' therefore have a timestamp, longitude and latitude column.
 #'
 #' This function has been optimized for simulation studies where it will be
 #' called repeatedly. Because of this, all error-handling is done prior to this
@@ -13,16 +13,43 @@
 #' are ordered based on the timestamp, and that the columns names are correct.
 #'
 #'
-#' @param traj An ordered data.table with columns named timestamp, longitude and latitude
-#' @param thetaD The distance parameter, represents a radius in meters for establishing how much area a stop can encompass.
-#' @param thetaT The time parameter, representing the length of time that must be spent within the stop area before being considered a stop.
+#' @param traj An ordered data.table with columns named timestamp, longitude and
+#'   latitude
+#' @param thetaD The distance parameter, represents a radius in meters for
+#'   establishing how much area a stop can encompass.
+#' @param thetaT The time parameter, representing the length of time that must
+#'   be spent within the stop area before being considered a stop.
 #'
-#' @return traj is modified by reference to include a column stop_initiation_idx, which is NA for locations not belonging to a stop, and equal to the row number initiating the stop it belongs to otherwise.
+#' @return traj is modified by reference to include a column
+#'   stop_initiation_idx, which is NA for locations not belonging to a stop, and
+#'   equal to the row number initiating the stop it belongs to otherwise.
 #' @export
 #'
 #' @examples
 #' # Set up data
+#' dt <- data.table(entity_id = rep(1, 27),
+#' timestamp = c(1, 2, 4, 10, 14, 18, 20, 21, 24, 25, 28, 29, 45, 80, 100,
+#'               120, 200, 270, 300, 340, 380, 450, 455, 460, 470, 475,
+#'               490),
+#' longitude = c(5.1299311, 5.129979, 5.129597, 5.130028, 5.130555, 5.131083,
+#'               5.132101, 5.132704, 5.133326, 5.133904, 5.134746, 5.135613,
+#'               5.135613, 5.135613, 5.135613, 5.135613, 5.135613, 5.135613,
+#'               5.135613, 5.135613, 5.135613, 5.135613, 5.134746, 5.133904,
+#'               5.133326, 5.132704, 5.132101),
+#' latitude = c(52.092839, 52.092827, 52.092571, 52.092292, 52.092076, 52.091821,
+#'              52.091420, 52.091219, 52.091343, 52.091651, 52.092138, 52.092698,
+#'              52.092698, 52.092698, 52.092698, 52.092698, 52.092698, 52.092698,
+#'              52.092698, 52.092698, 52.092698, 52.092138, 52.091651, 52.091343,
+#'              52.091219, 52.091420, 52.091821))
+#' stopFinder(dt, thetaD = 50, thetaT = 400)[]
+#' plot(dt$longitude, dt$latitude, type = "b", lwd = dt$timedif, pch = 20,
+#'  main = "Stay point detection from timestamped trajectory",
+#'  sub = "Point size is elapsed time, points in red form a stop")
+#' points(x = dt$longitude[dt$state == "stopped"],
+#'  y = dt$latitude[dt$state == "stopped"],
+#'  col = "red", lwd = dt$timedif[dt$state == "stopped"], pch = 20)
 #'
+
 stopFinder <- function(traj, thetaD, thetaT) {
   set(traj,
       j = "stop_initiation_idx",

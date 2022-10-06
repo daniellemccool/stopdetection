@@ -1,5 +1,3 @@
-context("stopMerger")
-
 testevents <-
   data.table(
     state_id = 1:7,

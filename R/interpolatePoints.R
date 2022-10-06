@@ -1,8 +1,13 @@
 interpolatePoints <-
   function(dt,
-           max_time = minutes(3),
+           max_time = lubridate::minutes(3),
            max_dist = 200) {
-    # dt <- dt[accuracy <= 80]
+
+    # Fix note on no visible binding from data.table NSE
+    time_gap_from_prev <- dist_gap_from_prev <- device_id <- data_set_days <-
+      prev_lon <- prev_lat <- longitude <- latitude <- prev_ts <- timestamp <-
+      next_ts <- next_lat <- minutes_gap <- next_lon <- id <- NULL
+
     set(dt,
         j = c("prev_ts",
               "prev_lon",
@@ -18,7 +23,7 @@ interpolatePoints <-
               "dist_gap_from_prev"),
         value = list(
           dt[["timestamp"]] - dt[["prev_ts"]],
-          geodist(cbind(lon = dt[["longitude"]], lat = dt[["latitude"]]),
+          geodist::geodist(cbind(lon = dt[["longitude"]], lat = dt[["latitude"]]),
                   cbind(lon = dt[["prev_lon"]], lat = dt[["prev_lat"]]),
                   paired = TRUE,
                   measure = "haversine")
@@ -36,7 +41,7 @@ interpolatePoints <-
            next_lat = latitude,
            prev_ts,
            next_ts = timestamp,
-           minutes_gap = floor(time_length(time_gap_from_prev, unit = "minute")) + 1,
+           minutes_gap = floor(lubridate::time_length(time_gap_from_prev, unit = "minute")) + 1,
            id = .I
          )]
     if (missingseg[, .N] > 0) {
@@ -45,7 +50,7 @@ interpolatePoints <-
           timestamp = seq(
             from = prev_ts,
             to = next_ts,
-            by = seconds(60)
+            by = lubridate::seconds(60)
           ),
           latitude = seq(
             from = prev_lat,

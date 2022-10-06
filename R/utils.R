@@ -1,31 +1,3 @@
-cumwmean <- function(X, N) {
-  cumsum(X * N) / cumsum(N)
-}
-
-
-# geodist_vec is faster
-# haversine <- function(longitude, latitude){
-#   lon_rad <- longitude * pi/180
-#   prev_lon_rad <- shift(lon_rad)
-#   lat_rad <- latitude * pi/180
-#   prev_lat_rad <- shift(lat_rad)
-#   diff_lon <- (lon_rad - prev_lon_rad)[-1]
-#   diff_lat <- (lat_rad - prev_lat_rad)[-1]
-#
-#   #
-#   # x = diff(lon_rad) * cos(0.5*lat_rad))
-#   # # x = diff(longitude * pi/180) * cos(0.5*sum(latitude * pi/180))
-#   # y = diff(lat_rad)
-#   # # y = diff(latitude* pi/180)
-#   # sum(6371000 * sqrt( x^2 + y^2 ))
-#
-#   a <- sin(diff_lat/2)^2 +
-#     cos(prev_lat_rad[-1]) * cos(lat_rad)[-1] *
-#     sin(diff_lon/2)^2
-#   6371000 * 2 * asin(sqrt(a))
-# }
-
-
 haversinem <- function(mat){
   newmat <- mat*pi/180
   x <- (newmat[2, 1] - newmat[1, 1]) *

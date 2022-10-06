@@ -4,7 +4,13 @@
 \alias{mergingCycle}
 \title{Merging Cycle}
 \usage{
-mergingCycle(res, max_merges = Inf, thetaD = 200, small_track_action = "merge")
+mergingCycle(
+  res,
+  max_merges = Inf,
+  thetaD = 200,
+  small_track_action = "merge",
+  ...
+)
 }
 \arguments{
 \item{res}{Results data.table from \code{stopFinder}}
@@ -14,6 +20,8 @@ mergingCycle(res, max_merges = Inf, thetaD = 200, small_track_action = "merge")
 \item{thetaD}{how many meters away may stops be and still be merged}
 
 \item{small_track_action}{one of "merge" or "exclude" for short tracks}
+
+\item{...}{additional optional arguments passed to moveMerger including max_locs, max_time and max_dist}
 }
 \value{
 Modifies res data.table by reference

@@ -4,10 +4,11 @@
 #' move states, merges stops separated by less than \code{thetaD} meters.
 #' Modifies events by reference.
 #'
-#' @param events data.table of events from \code{returnStateEvents}
+#' @param events data.table of events from \code{\link{returnStateEvents}}
 #' @param thetaD maximum distance for merging subsequent stops
 #'
-#' @return modifies events data.table by reference
+#' @return modifies events data.table by reference, changing new_stop_id and
+#'   new_state
 
 stopMerger <- function(events, thetaD) {
   events[state != "excluded",
