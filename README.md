@@ -45,59 +45,79 @@ seconds.
 ``` r
 library(data.table)
 library(stopdetection)
+data("loc_data_2019")
+setDT(loc_data_2019)
+stopFinder(loc_data_2019, thetaD = 200, thetaT = 200)
+```
 
-df <- data.frame(entity_id = rep(1, 27),
-   timestamp = c(1, 2, 4, 10, 14, 18, 20, 21, 24, 25, 28, 29, 45, 80, 100,
-                 120, 200, 270, 300, 340, 380, 450, 455, 460, 470, 475,
-                 490),
-   longitude = c(5.1299311, 5.129979, 5.129597, 5.130028, 5.130555, 5.131083,
-           5.132101, 5.132704, 5.133326, 5.133904, 5.134746, 5.135613,
-           5.135613, 5.135613, 5.135613, 5.135613, 5.135613, 5.135613,
-           5.135613, 5.135613, 5.135613, 5.135613, 5.134746, 5.133904,
-           5.133326, 5.132704, 5.132101),
-   latitude = c(52.092839, 52.092827, 52.092571, 52.092292, 52.092076, 52.091821,
-           52.091420, 52.091219, 52.091343, 52.091651, 52.092138, 52.092698,
-           52.092698, 52.092698, 52.092698, 52.092698, 52.092698, 52.092698,
-           52.092698, 52.092698, 52.092698, 52.092138, 52.091651, 52.091343,
-           52.091219, 52.091420, 52.091821))
-setDT(df)
-stopFinder(df, thetaD = 200, thetaT = 200)
-#> function (x, df1, df2, ncp, log = FALSE) 
-#> {
-#>     if (missing(ncp)) 
-#>         .Call(C_df, x, df1, df2, log)
-#>     else .Call(C_dnf, x, df1, df2, ncp, log)
-#> }
-#> <bytecode: 0x000001d0058e96e0>
-#> <environment: namespace:stats>
-df
-#>     entity_id timestamp longitude latitude stop_id
-#>  1:         1         1  5.129931 52.09284      NA
-#>  2:         1         2  5.129979 52.09283      NA
-#>  3:         1         4  5.129597 52.09257      NA
-#>  4:         1        10  5.130028 52.09229      NA
-#>  5:         1        14  5.130555 52.09208      NA
-#>  6:         1        18  5.131083 52.09182      NA
-#>  7:         1        20  5.132101 52.09142      NA
-#>  8:         1        21  5.132704 52.09122      NA
-#>  9:         1        24  5.133326 52.09134      NA
-#> 10:         1        25  5.133904 52.09165      NA
-#> 11:         1        28  5.134746 52.09214      NA
-#> 12:         1        29  5.135613 52.09270      12
-#> 13:         1        45  5.135613 52.09270      12
-#> 14:         1        80  5.135613 52.09270      12
-#> 15:         1       100  5.135613 52.09270      12
-#> 16:         1       120  5.135613 52.09270      12
-#> 17:         1       200  5.135613 52.09270      12
-#> 18:         1       270  5.135613 52.09270      12
-#> 19:         1       300  5.135613 52.09270      12
-#> 20:         1       340  5.135613 52.09270      12
-#> 21:         1       380  5.135613 52.09270      12
-#> 22:         1       450  5.135613 52.09214      12
-#> 23:         1       455  5.134746 52.09165      12
-#> 24:         1       460  5.133904 52.09134      12
-#> 25:         1       470  5.133326 52.09122      12
-#> 26:         1       475  5.132704 52.09142      NA
-#> 27:         1       490  5.132101 52.09182      NA
-#>     entity_id timestamp longitude latitude stop_id
+## Extract states
+
+Use to quickly extract a data.table containing information about the
+stops and tracks
+
+``` r
+returnStateEvents(loc_data_2019)
+#>      state_id   state  meanlat  meanlon          begin_time            end_time
+#>   1:        1 stopped 52.07212 5.123760 2019-11-01 00:02:46 2019-11-01 08:05:55
+#>   2:        2  moving       NA       NA 2019-11-01 08:06:27 2019-11-01 08:06:27
+#>   3:        3 stopped 52.07793 5.122575 2019-11-01 08:06:42 2019-11-01 08:12:00
+#>   4:        4  moving       NA       NA 2019-11-01 08:12:15 2019-11-01 08:15:24
+#>   5:        5 stopped 52.08895 5.109750 2019-11-01 08:15:40 2019-11-01 08:24:29
+#>  ---                                                                           
+#> 303:      303  moving       NA       NA 2019-11-14 19:02:59 2019-11-14 19:11:46
+#> 304:      304 stopped 52.08177 5.138043 2019-11-14 19:12:02 2019-11-14 19:57:11
+#> 305:      305 stopped 52.08248 5.134109 2019-11-14 19:57:40 2019-11-14 20:01:20
+#> 306:      306  moving       NA       NA 2019-11-14 20:01:37 2019-11-14 20:08:32
+#> 307:      307 stopped 52.07213 5.123719 2019-11-14 20:08:47 2019-11-14 23:59:23
+#>      raw_travel_dist stop_id move_id n_locations
+#>   1:              NA       1      NA         472
+#>   2:              NA      NA       1           1
+#>   3:              NA       2      NA          22
+#>   4:        1253.036      NA       2          12
+#>   5:              NA       3      NA          37
+#>  ---                                            
+#> 303:        2122.411      NA      90          32
+#> 304:              NA     214      NA          65
+#> 305:              NA     215      NA          13
+#> 306:        1532.397      NA      91          25
+#> 307:              NA     216      NA         205
+```
+
+## Merge stops/handle short tracks
+
+Subsequent nearby stops can be merged based on the distance of their
+centroids. This is often useful if they represent the same stop
+subjectively. Short tracks can be either merged into the previous stop
+or excluded. Often short ‘tracks’ represent erroneously measured GNSS
+locations of one or two points, so excluding them is helpful. The
+combination of excluding short tracks and merging stops can be used to
+handle noisy location data.
+
+``` r
+mergingCycle(loc_data_2019, thetaD = 200, small_track_action = "exclude")
+returnStateEvents(loc_data_2019)
+#>      state_id    state  meanlat  meanlon          begin_time
+#>   1:        1  stopped 52.07212 5.123760 2019-11-01 00:02:46
+#>   2:       NA excluded       NA       NA 2019-11-01 08:06:27
+#>   3:        2  stopped 52.07791 5.122623 2019-11-01 08:06:42
+#>   4:        3   moving       NA       NA 2019-11-01 08:12:15
+#>   5:        4  stopped 52.08895 5.109750 2019-11-01 08:15:40
+#>  ---                                                        
+#> 265:      264   moving       NA       NA 2019-11-14 19:02:59
+#> 266:      265  stopped 52.08177 5.138043 2019-11-14 19:12:02
+#> 267:      266  stopped 52.08248 5.134109 2019-11-14 19:57:40
+#> 268:      267   moving       NA       NA 2019-11-14 20:01:37
+#> 269:      268  stopped 52.07213 5.123719 2019-11-14 20:08:47
+#>                 end_time raw_travel_dist stop_id move_id n_locations
+#>   1: 2019-11-01 08:05:55              NA       1      NA         472
+#>   2: 2019-11-14 16:25:07              NA      NA      NA           8
+#>   3: 2019-11-01 08:12:00              NA       2      NA          22
+#>   4: 2019-11-01 08:15:24        1253.036      NA       1          12
+#>   5: 2019-11-01 08:24:29              NA       3      NA          37
+#>  ---                                                                
+#> 265: 2019-11-14 19:11:46        2122.411      NA      82          32
+#> 266: 2019-11-14 19:57:11              NA     183      NA          65
+#> 267: 2019-11-14 20:01:20              NA     184      NA          13
+#> 268: 2019-11-14 20:08:32        1532.397      NA      83          25
+#> 269: 2019-11-14 23:59:23              NA     185      NA         205
 ```

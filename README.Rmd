@@ -39,23 +39,24 @@ The following demonstrates the stopFinder algorithm with a distance radius param
 ```{r example}
 library(data.table)
 library(stopdetection)
+data("loc_data_2019")
+setDT(loc_data_2019)
+stopFinder(loc_data_2019, thetaD = 200, thetaT = 200)
+```
+## Extract states
 
-df <- data.frame(entity_id = rep(1, 27),
-   timestamp = c(1, 2, 4, 10, 14, 18, 20, 21, 24, 25, 28, 29, 45, 80, 100,
-                 120, 200, 270, 300, 340, 380, 450, 455, 460, 470, 475,
-                 490),
-   longitude = c(5.1299311, 5.129979, 5.129597, 5.130028, 5.130555, 5.131083,
-           5.132101, 5.132704, 5.133326, 5.133904, 5.134746, 5.135613,
-           5.135613, 5.135613, 5.135613, 5.135613, 5.135613, 5.135613,
-           5.135613, 5.135613, 5.135613, 5.135613, 5.134746, 5.133904,
-           5.133326, 5.132704, 5.132101),
-   latitude = c(52.092839, 52.092827, 52.092571, 52.092292, 52.092076, 52.091821,
-           52.091420, 52.091219, 52.091343, 52.091651, 52.092138, 52.092698,
-           52.092698, 52.092698, 52.092698, 52.092698, 52.092698, 52.092698,
-           52.092698, 52.092698, 52.092698, 52.092138, 52.091651, 52.091343,
-           52.091219, 52.091420, 52.091821))
-setDT(df)
-stopFinder(df, thetaD = 200, thetaT = 200)
-df
+Use \code{returnStateEevnts} to quickly extract a data.table containing information about the stops and tracks
+
+```{r example2}
+returnStateEvents(loc_data_2019)
+```
+
+## Merge stops/handle short tracks
+
+Subsequent nearby stops can be merged based on the distance of their centroids. This is often useful if they represent the same stop subjectively. Short tracks can be either merged into the previous stop or excluded. Often short 'tracks' represent erroneously measured GNSS locations of one or two points, so excluding them is helpful. The combination of excluding short tracks and merging stops can be used to handle noisy location data.
+
+```{r example3}
+mergingCycle(loc_data_2019, thetaD = 200, small_track_action = "exclude")
+returnStateEvents(loc_data_2019)
 ```
 
