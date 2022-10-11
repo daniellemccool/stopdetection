@@ -6,8 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package implements the stop detection algorithm as outlined in
-Montoliu (2013). This package provides a set of tools to cluster
+This package implements the stop detection algorithm as outlined in Ye
+et al. (2009). This package provides a set of tools to cluster
 timestamped movement trajectories into sets of stops (or staypoints) and
 tracks (or trajectories). Time-adjacent clusters are formed by first
 identifying stops on the basis of provided dwell time and radius
@@ -18,13 +18,14 @@ to find all clusters within the trajectory for which a person remained
 within a circle with radius 200 meters for at least five minutes.
 
 It is recommended to merge stops following the initial stop
-identification, as documented in … FMS study …. Merging stops requires a
-parameter for the maximum distance away from each other that two stops
-may be while being considered the same stop. Single points between two
-stops adjacent in time are removed during this step. In data where
-locations are measured without error, this step is optional. Where
-locations are generated with error, this step provides an error
-correcting mechanism for erroneous and low-accuracy locations.
+identification, as documented in Montoliu, Blom, and Gatica-Perez
+(2013). Merging stops requires a parameter for the maximum distance away
+from each other that two stops may be while being considered the same
+stop. Single points between two stops adjacent in time are removed
+during this step. In data where locations are measured without error,
+this step is optional. Where locations are generated with error, this
+step provides an error correcting mechanism for erroneous and
+low-accuracy locations.
 
 ## Installation
 
@@ -121,3 +122,26 @@ returnStateEvents(loc_data_2019)
 #> 268: 2019-11-14 20:08:32        1532.397      NA      83          25
 #> 269: 2019-11-14 23:59:23              NA     185      NA         205
 ```
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-Montoliu2013-tb" class="csl-entry">
+
+Montoliu, Raul, Jan Blom, and Daniel Gatica-Perez. 2013. “Discovering
+Places of Interest in Everyday Life from Smartphone Data.” *Multimedia
+Tools and Applications* 62 (1): 179–207.
+<https://doi.org/10.1007/s11042-011-0982-z>.
+
+</div>
+
+<div id="ref-Ye2009-dv" class="csl-entry">
+
+Ye, Yang, Yu Zheng, Yukun Chen, Jianhua Feng, and Xing Xie. 2009.
+“Mining Individual Life Pattern Based on Location History.” In
+*Proceedings of the 2009 Tenth International Conference on Mobile Data
+Management: Systems, Services and Middleware*, 1–10. MDM ’09. USA: IEEE
+Computer Society. <https://doi.org/10.1109/MDM.2009.11>.
+
+</div>
+
+</div>

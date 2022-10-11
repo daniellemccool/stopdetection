@@ -1,5 +1,6 @@
 ---
 output: github_document
+bibliography: bibliography.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -18,9 +19,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package implements the stop detection algorithm as outlined in Montoliu (2013). This package provides a set of tools to cluster timestamped movement trajectories into sets of stops (or staypoints) and tracks (or trajectories). Time-adjacent clusters are formed by first identifying stops on the basis of provided dwell time and radius parameters. A stop is created if all subsequent locations are within a certain distance of an initiating location for at least as long as the dwell time. For example, 200 meters and 5 minutes may be used in order to find all clusters within the trajectory for which a person remained within a circle with radius 200 meters for at least five minutes.
+This package implements the stop detection algorithm as outlined in @Ye2009-dv. This package provides a set of tools to cluster timestamped movement trajectories into sets of stops (or staypoints) and tracks (or trajectories). Time-adjacent clusters are formed by first identifying stops on the basis of provided dwell time and radius parameters. A stop is created if all subsequent locations are within a certain distance of an initiating location for at least as long as the dwell time. For example, 200 meters and 5 minutes may be used in order to find all clusters within the trajectory for which a person remained within a circle with radius 200 meters for at least five minutes.
 
-It is recommended to merge stops following the initial stop identification, as documented in ... FMS study .... Merging stops requires a parameter for the maximum distance away from each other that two stops may be while being considered the same stop. Single points between two stops adjacent in time are removed during this step. In data where locations are measured without error, this step is optional. Where locations are generated with error, this step provides an error correcting mechanism for erroneous and low-accuracy locations.
+It is recommended to merge stops following the initial stop identification, as documented in @Montoliu2013-tb. Merging stops requires a parameter for the maximum distance away from each other that two stops may be while being considered the same stop. Single points between two stops adjacent in time are removed during this step. In data where locations are measured without error, this step is optional. Where locations are generated with error, this step provides an error correcting mechanism for erroneous and low-accuracy locations.
 
 ## Installation
 
