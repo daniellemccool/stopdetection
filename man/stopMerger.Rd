@@ -7,12 +7,13 @@
 stopMerger(events, thetaD)
 }
 \arguments{
-\item{events}{data.table of events from \code{returnStateEvents}}
+\item{events}{data.table of events from \code{\link{returnStateEvents}}}
 
 \item{thetaD}{maximum distance for merging subsequent stops}
 }
 \value{
-modifies events data.table by reference
+modifies events data.table by reference, changing new_stop_id and
+new_state
 }
 \description{
 Given the events data.table containing the spatiotemporally clustered stop/

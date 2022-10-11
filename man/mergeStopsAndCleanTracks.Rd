@@ -21,3 +21,4 @@ update events data.table by reference
 \description{
 Calls \code{stopMerger} and then \code{moveMerger}
 }
+\keyword{internal}

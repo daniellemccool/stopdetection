@@ -3,3 +3,5 @@
 ^stopdetection\.Rproj$
 ^LICENSE\.md$
 ^README\.Rmd$
+^doc$
+^Meta$

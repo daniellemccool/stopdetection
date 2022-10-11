@@ -1,3 +1,22 @@
+#' Return State Events
+#'
+#' Given a data.table updated with stop and move events from
+#' \code{\link{stopFinder}}, returns data aggregated to the event level.
+#'
+#' @param dt data.table updated with stop and move events from
+#'   \code{\link{stopFinder}}
+#'
+#' @return data.table with one line per stop/move event, annotated with columns
+#'   state_id, state, begin_time, end_time and n_locations. Move events contain
+#'   information on the raw_travel_dist and a move_id. Stop events have values
+#'   for columns meanlat and meanlon, which are respectively the mean latitude
+#'   and longitude of locations ocurring during the stop.
+#' @export
+#'
+#' @examples
+#' data(loc_data_2019); setDT(loc_data_2019)
+#' stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)
+#' returnStateEvents(loc_data_2019)
 returnStateEvents <- function(dt) {
   res <- copy(dt)
   # set(res,
@@ -71,5 +90,5 @@ returnStateEvents <- function(dt) {
     move_id,
     # stop_initiation_idx,
     n_locations = .N
-  ), state_id])
+  ), state_id])[]
 }

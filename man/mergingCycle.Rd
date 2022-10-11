@@ -13,15 +13,17 @@ mergingCycle(
 )
 }
 \arguments{
-\item{res}{Results data.table from \code{stopFinder}}
+\item{res}{Results data.table from \code{\link{stopFinder}} containing
+columns timestamp, longitude, latitude and state}
 
-\item{max_merges}{failsafe to prevent infinite loop}
+\item{max_merges}{integer of maximum number of merges to perform}
 
 \item{thetaD}{how many meters away may stops be and still be merged}
 
 \item{small_track_action}{one of "merge" or "exclude" for short tracks}
 
-\item{...}{additional optional arguments passed to moveMerger including max_locs, max_time and max_dist}
+\item{...}{additional optional arguments passed to moveMerger including
+max_locs, max_time and max_dist}
 }
 \value{
 Modifies res data.table by reference
@@ -29,4 +31,19 @@ Modifies res data.table by reference
 \description{
 Runs the stop and merging cycle until no changes are seen or until the max
 number of merges are met.
+}
+\examples{
+# Load data
+data(loc_data_2019); setDT(loc_data_2019)
+# Find initial set of stops
+stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)
+# This selection contains a short track to eliminate and two stops to merge
+example <- copy(loc_data_2019[state_id \%between\% c(1, 10)])
+events_pre_merge <- returnStateEvents(example)
+# Perform the merging
+mergingCycle(example, thetaD = 200, small_track_action = "exclude")
+events_post_merge <- returnStateEvents(example)
+# From 10 states to 8 states
+events_pre_merge[, .(state_id, state, meanlat, meanlon, n_locations)]
+events_post_merge[, .(state_id, state, meanlat, meanlon, n_locations)]
 }

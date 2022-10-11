@@ -36,7 +36,7 @@ moveMerger <- function(events, small_track_action = "merge", max_locs = 1, max_t
   events[state == "moving",
          mergeable := n_locations <= max_locs &
            ((end_time - begin_time) <= max_time) &
-           raw_travel_dist <= max_dist]
+           (raw_travel_dist <= max_dist | is.na(raw_travel_dist))]
   events[, `:=`(
     new_state_id = new_state_id - cumsum(mergeable),
     new_state = state

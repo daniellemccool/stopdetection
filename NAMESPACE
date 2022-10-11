@@ -2,6 +2,7 @@
 
 export(mergingCycle)
 export(radiusOfGyrationDT)
+export(returnStateEvents)
 export(stopFinder)
 import(data.table)
 importFrom(data.table,":=")
