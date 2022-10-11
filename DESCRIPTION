@@ -1,5 +1,5 @@
 Package: stopdetection
-Title: Detects Stops in Timestamped Trajectory Data using Spatiotemporal Clustering
+Title: Stop Detection in Timestamped Trajectory Data using Spatiotemporal Clustering
 Version: 0.0.0.9000
 Authors@R: 
     person("McCool", "Danielle", , "d.m.mccool@uu.nl", role = c("aut", "cre"),
@@ -10,11 +10,11 @@ Description: Trajectory data formed by human or animal movement is often marked
     latitude/longitude points by clustering consecutive locations to produce a
     model of this behavior. This package implements the Stay Point detection
     algorithm originally described in Ye (2009) <doi:10.1109/MDM.2009.11> that
-    uses time and distance threshholds to characterize spatial regions as
+    uses time and distance thresholds to characterize spatial regions as
     'stops'. This package also implements the concept of merging described in
-    Montoliu (2013) <doi:10.1007/s11042-011-0982-z> as staypoint region
+    Montoliu (2013) <doi:10.1007/s11042-011-0982-z> as stay point region
     estimation, which allows for clustering of temporally adjacent stops for
-    which distance between the midpoints is less than the provided threshhold.
+    which distance between the midpoints is less than the provided threshold.
     GPS-like data from various sources can be used, but the temporal thresholds
     must be considered with respect to the sampling interval, and the spatial 
     thresholds must be considered with respect to the measurement error.
