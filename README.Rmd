@@ -61,3 +61,4 @@ mergingCycle(loc_data_2019, thetaD = 200, small_track_action = "exclude")
 returnStateEvents(loc_data_2019)
 ```
 
+# References

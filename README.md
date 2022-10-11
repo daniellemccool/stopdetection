@@ -123,6 +123,8 @@ returnStateEvents(loc_data_2019)
 #> 269: 2019-11-14 23:59:23              NA     185      NA         205
 ```
 
+# References
+
 <div id="refs" class="references csl-bib-body hanging-indent">
 
 <div id="ref-Montoliu2013-tb" class="csl-entry">
