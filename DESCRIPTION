@@ -15,9 +15,9 @@ Description: Trajectory data formed by human or animal movement is often marked
     Montoliu (2013) <doi:10.1007/s11042-011-0982-z> as staypoint region
     estimation, which allows for clustering of temporally adjacent stops for
     which distance between the midpoints is less than the provided threshhold.
-    GPS-like data from various sources can be used, but the temporal threshholds
+    GPS-like data from various sources can be used, but the temporal thresholds
     must be considered with respect to the sampling interval, and the spatial 
-    threshholds must be considered with respect to the measurement error.
+    thresholds must be considered with respect to the measurement error.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

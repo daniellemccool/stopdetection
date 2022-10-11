@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ## Importance of stop detection
-This vignette shows how the stopdetection package can be used to segment timestamped trajectories into sequences of stops and tracks (alternatively known as staypoints and trajectories). 
+This vignette shows how the stopdetection package can be used to segment timestamped trajectories into sequences of stops and tracks (alternatively known as stay points and trajectories). 
 
 Living beings tend to have movement behavior that intersperses time spent in motion with time spent at rest. Often it's interesting to distinguish between the the two states of "moving" and "stopped," because we want to investigate only one or the other, we want to aggregate over the state, or because we want to calculate some statistics for these states independently. 
 
@@ -122,7 +122,7 @@ events[]
 
 ### Merging close stops
 
-It may be useful to merge sucessive locations that have been clustered into stops. Consider the situation in which multiple stops have been identified within a building with the same semantic meaning. This parameter is another distance parameter and reflects how far away the centroids of the stops may be while being merged. This doesn't have to be the same as the distance parameter set during the stop detection algorithm.
+It may be useful to merge successive locations that have been clustered into stops. Consider the situation in which multiple stops have been identified within a building with the same semantic meaning. This parameter is another distance parameter and reflects how far away the centroids of the stops may be while being merged. This doesn't have to be the same as the distance parameter set during the stop detection algorithm.
 
 ### Merging or excluding short tracks and errors
 

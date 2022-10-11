@@ -15,7 +15,7 @@ data.table with one line per stop/move event, annotated with columns
 state_id, state, begin_time, end_time and n_locations. Move events contain
 information on the raw_travel_dist and a move_id. Stop events have values
 for columns meanlat and meanlon, which are respectively the mean latitude
-and longitude of locations ocurring during the stop.
+and longitude of locations occurring during the stop.
 }
 \description{
 Given a data.table updated with stop and move events from

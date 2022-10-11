@@ -8,8 +8,8 @@
 
 This package implements the stop detection algorithm as outlined in Ye
 et al. (2009). This package provides a set of tools to cluster
-timestamped movement trajectories into sets of stops (or staypoints) and
-tracks (or trajectories). Time-adjacent clusters are formed by first
+timestamped movement trajectories into sets of stops (or stay points)
+and tracks (or trajectories). Time-adjacent clusters are formed by first
 identifying stops on the basis of provided dwell time and radius
 parameters. A stop is created if all subsequent locations are within a
 certain distance of an initiating location for at least as long as the
