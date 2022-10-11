@@ -103,7 +103,7 @@ setDT(loc_data_2019)
 loc_data_2019
 ```
 
-## stopFinder
+### stopFinder
 
 Initial stop clusters can be identified using \code{stopFinder}. This requires named parameters thetaD and thetaT, as described above. The data.table supplied as the first argument will be modified by reference, and columns will be added for the state and state_id. 
 
@@ -111,7 +111,7 @@ Initial stop clusters can be identified using \code{stopFinder}. This requires n
 stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)[]
 ```
 
-## returnStateEvents
+### returnStateEvents
 
 Once the initial stops have been generated, it is possible to use the function \code{returnStateEvents} to extract a data.table containing one row per event. For both stop and move events, these are annotated with the state and state_id, begin_time and end_time and number of locations belonging to the state. For move states, the raw distance traveled is included (sum of all distances between points). For stop states, the mean latitude and longitude coordinates are included. 
 
@@ -120,12 +120,25 @@ events <- returnStateEvents(loc_data_2019)
 events[]
 ```
 
-## Merging close stops
+### Merging close stops
 
 It may be useful to merge sucessive locations that have been clustered into stops. Consider the situation in which multiple stops have been identified within a building with the same semantic meaning. This parameter is another distance parameter and reflects how far away the centroids of the stops may be while being merged. This doesn't have to be the same as the distance parameter set during the stop detection algorithm.
 
-## Merging or excluding short tracks and errors
+### Merging or excluding short tracks and errors
 
+Often tracks consisting of only one point, lasting for only a few seconds, or covering very little distance are actually errors, rather than tracks, and interrupt what would otherwise be a single contiguous stop. These sets of locations can be handled either by merging them with a stop, or by excluding them. Short tracks may be excluded on the basis of time, using the `max_time` parameter, distance (in meters) using the `max_dist` parameter, or total number of locations involved, using the `max_locs` parameter.
+
+Most often, these steps will be carried out together, as removing or merging short tracks will tend to create two subsequent stops with very close centroids.
+
+```{r}
+mergingCycle(loc_data_2019,
+             thetaD = 200,
+             small_track_action = "exclude",
+             max_time = 600,
+             max_dist = 2000,
+             max_locs = 20)
+returnStateEvents(loc_data_2019)[]
+```
 
 
 
