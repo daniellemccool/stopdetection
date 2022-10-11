@@ -53,6 +53,7 @@ updateDataWithEvents <- function(res, events){
 #' @export
 #' @examples
 #' # Load data
+#' library(data.table)
 #' data(loc_data_2019); setDT(loc_data_2019)
 #' # Find initial set of stops
 #' stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)

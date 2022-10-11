@@ -37,6 +37,7 @@ are ordered based on the timestamp, and that the columns names are correct.
 }
 \examples{
 # Set up data
+library(data.table)
 dt <- data.table(entity_id = rep(1, 27),
 timestamp = c(1, 2, 4, 10, 14, 18, 20, 21, 24, 25, 28, 29, 45, 80, 100,
               120, 200, 270, 300, 340, 380, 450, 455, 460, 470, 475,

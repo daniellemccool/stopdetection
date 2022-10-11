@@ -14,6 +14,7 @@
 #' @export
 #'
 #' @examples
+#' library(data.table)
 #' data(loc_data_2019); setDT(loc_data_2019)
 #' stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)
 #' returnStateEvents(loc_data_2019)
