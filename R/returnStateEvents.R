@@ -45,6 +45,9 @@ returnStateEvents <- function(dt) {
       j = c("stop_id", "state"),
       value = list(rleid(res[["state_id"]][stop_idx]), "stopped"))
 
+  if (length(move_idx) == 0) set(res, j = "move_id", value = NA)
+  if (length(stop_idx) == 0) set(res, j = "stop_id", value = NA)
+
 
   # set(res,
   #     j = c("prev_lon",
