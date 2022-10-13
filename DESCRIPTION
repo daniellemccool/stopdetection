@@ -1,6 +1,6 @@
 Package: stopdetection
 Title: Stop Detection in Timestamped Trajectory Data using Spatiotemporal Clustering
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     person("McCool", "Danielle", , "d.m.mccool@uu.nl", role = c("aut", "cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-7055-7539"))
