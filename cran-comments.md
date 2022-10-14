@@ -1,22 +1,16 @@
+## Bug-fix 
+
 ## Test environments
 - R-hub windows-x86_64-devel (r-devel)
 - R-hub ubuntu-gcc-release (r-release)
 - R-hub fedora-clang-devel (r-devel)
 
 ## R CMD check results
-
-- Notes on misspellings are a name and two accepted words
-
 ❯ On windows-x86_64-devel (r-devel)
-  checking CRAN incoming feasibility ... [11s] NOTE
+  checking CRAN incoming feasibility ... [15s] NOTE
   Maintainer: 'McCool Danielle <d.m.mccool@uu.nl>'
   
-  New submission
-  
-  Possibly misspelled words in DESCRIPTION:
-    Montoliu (16:5) 
-    Spatiotemporal (3:9)
-    geolocation (10:50)
+  Days since last update: 2
 
 ❯ On windows-x86_64-devel (r-devel)
   checking for detritus in the temp directory ... NOTE
@@ -27,23 +21,13 @@
   checking CRAN incoming feasibility ... NOTE
   Maintainer: ‘McCool Danielle <d.m.mccool@uu.nl>’
   
-  New submission
-  
-  Possibly misspelled words in DESCRIPTION:
-    geolocation (10:50)
-    Montoliu (16:5)
-    Spatiotemporal (3:9)
+  Days since last update: 2
 
 ❯ On fedora-clang-devel (r-devel)
-  checking CRAN incoming feasibility ... [4s/13s] NOTE
+  checking CRAN incoming feasibility ... [8s/25s] NOTE
   Maintainer: ‘McCool Danielle <d.m.mccool@uu.nl>’
   
-  New submission
-  
-  Possibly misspelled words in DESCRIPTION:
-    Montoliu (16:5)
-    Spatiotemporal (3:9)
-    geolocation (10:50)
+  Days since last update: 2
 
 ❯ On fedora-clang-devel (r-devel)
   checking HTML version of manual ... NOTE
