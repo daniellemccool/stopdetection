@@ -97,34 +97,34 @@ combination of excluding short tracks and merging stops can be used to
 handle noisy location data.
 
 ``` r
-mergingCycle(loc_data_2019, thetaD = 200, small_track_action = "exclude")
+mergingCycle(loc_data_2019, thetaD = 200, small_track_action = "exclude", max_locs = Inf, max_dist = 200)
 returnStateEvents(loc_data_2019)
-#>      state_id   state  meanlat  meanlon          begin_time            end_time
-#>         <int>  <char>    <num>    <num>              <POSc>              <POSc>
-#>   1:        1 stopped 52.07212 5.123761 2019-11-01 00:02:46 2019-11-01 08:05:39
-#>   2:        2  moving       NA       NA 2019-11-01 08:05:55 2019-11-01 08:06:27
-#>   3:        3 stopped 52.07788 5.122714 2019-11-01 08:06:42 2019-11-01 08:11:29
-#>   4:        4  moving       NA       NA 2019-11-01 08:12:00 2019-11-01 08:15:24
-#>   5:        5 stopped 52.08902 5.109717 2019-11-01 08:15:40 2019-11-01 08:24:10
-#>  ---                                                                           
-#> 275:      274  moving       NA       NA 2019-11-14 19:02:43 2019-11-14 19:11:46
-#> 276:      275 stopped 52.08177 5.138043 2019-11-14 19:12:02 2019-11-14 19:57:11
-#> 277:      276 stopped 52.08252 5.134228 2019-11-14 19:57:40 2019-11-14 20:01:05
-#> 278:      277  moving       NA       NA 2019-11-14 20:01:20 2019-11-14 20:08:32
-#> 279:      278 stopped 52.07213 5.123719 2019-11-14 20:08:47 2019-11-14 23:59:23
-#>      raw_travel_dist stop_id move_id n_locations
-#>                <num>   <int>   <int>       <int>
-#>   1:              NA       1      NA         471
-#>   2:        158.2833      NA       1           2
-#>   3:              NA       2      NA          21
-#>   4:       1253.8918      NA       2          13
-#>   5:              NA       3      NA          36
-#>  ---                                            
-#> 275:       2171.3438      NA      90          33
-#> 276:              NA     185      NA          65
-#> 277:              NA     186      NA          12
-#> 278:       1589.1137      NA      91          26
-#> 279:              NA     187      NA         205
+#>      state_id    state  meanlat  meanlon          begin_time
+#>         <int>   <char>    <num>    <num>              <POSc>
+#>   1:        1  stopped 52.07212 5.123760 2019-11-01 00:02:46
+#>   2:       NA excluded       NA       NA 2019-11-01 08:05:55
+#>   3:        2  stopped 52.07785 5.122780 2019-11-01 08:06:42
+#>   4:        3   moving       NA       NA 2019-11-01 08:12:00
+#>   5:        4  stopped 52.08902 5.109717 2019-11-01 08:15:40
+#>  ---                                                        
+#> 251:      250   moving       NA       NA 2019-11-14 19:02:43
+#> 252:      251  stopped 52.08177 5.138043 2019-11-14 19:12:02
+#> 253:      252  stopped 52.08252 5.134228 2019-11-14 19:57:40
+#> 254:      253   moving       NA       NA 2019-11-14 20:01:20
+#> 255:      254  stopped 52.07213 5.123719 2019-11-14 20:08:47
+#>                 end_time raw_travel_dist stop_id move_id n_locations
+#>                   <POSc>           <num>   <int>   <int>       <int>
+#>   1: 2019-11-01 08:05:39              NA       1      NA         471
+#>   2: 2019-11-14 16:44:47              NA      NA      NA          68
+#>   3: 2019-11-01 08:11:29              NA       2      NA          21
+#>   4: 2019-11-01 08:15:24        1253.892      NA       1          13
+#>   5: 2019-11-01 08:24:10              NA       3      NA          36
+#>  ---                                                                
+#> 251: 2019-11-14 19:11:46        2171.344      NA      77          33
+#> 252: 2019-11-14 19:57:11              NA     174      NA          65
+#> 253: 2019-11-14 20:01:05              NA     175      NA          12
+#> 254: 2019-11-14 20:08:32        1589.114      NA      78          26
+#> 255: 2019-11-14 23:59:23              NA     176      NA         205
 ```
 
 # References

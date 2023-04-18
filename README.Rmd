@@ -54,7 +54,7 @@ returnStateEvents(loc_data_2019)
 
 ## Merge stops/handle short tracks
 
-Subsequent nearby stops can be merged based on the distance of their centroids. This is often useful if they represent the same stop subjectively. Short tracks can be either merged into the previous stop or excluded. Often short 'tracks' represent erroneously measured GNSS locations of one or two points, so excluding them is helpful. The combination of excluding short tracks and merging stops can be used to handle noisy location data.
+Subsequent nearby stops can be merged based on the distance of their centroids. This is often useful if they represent the same stop subjectively. Short tracks can be either merged into the previous stop or excluded. Often short 'tracks' represent erroneously measured GNSS locations of one or two points, so excluding them is helpful. The combination of excluding short tracks and merging stops can be used to handle noisy location data. 
 
 ```{r example3}
 mergingCycle(loc_data_2019, thetaD = 200, small_track_action = "exclude", max_locs = Inf, max_dist = 200)
