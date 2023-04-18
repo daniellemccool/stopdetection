@@ -1,4 +1,6 @@
 # stopdetection 0.1.2
+* Bugfix for incorrect handling of two temporally adjacent locations exceeding
+  stop radius and time but that fail to become tracks.
 
 # stopdetection 0.1.1
 
