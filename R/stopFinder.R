@@ -73,7 +73,7 @@ stopFinder <- function(traj, thetaD, thetaT) {
         time <- mat[j, 3] - mat[i, 3]
         # time <- diff(mat[c(i, j), 3])
         if ((time >= thetaT)) {
-          set(traj, i = i:j, j = "stop_initiation_idx", value = i)
+          set(traj, i = i:(j-1), j = "stop_initiation_idx", value = i)
           # traj[i:j, stop_id := i]
         }
         i <- j

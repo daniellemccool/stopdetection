@@ -15,7 +15,7 @@ df <- data.frame(entity_id = rep(1, 27),
 setDT(df)
 
 testthat::test_that("stopFinder correctly clusters the stops and tracks", {
-  testthat::expect_equal(stopFinder(copy(df), thetaD = 200, thetaT = 200)$state_id, c(rep(1, 11), rep(2, 14), rep(3, 2)))
-  testthat::expect_equal(stopFinder(copy(df), thetaD = 200, thetaT = 200)$state, c(rep("moving", 11), rep("stopped", 14), rep("moving", 2)))
+  testthat::expect_equal(stopFinder(copy(df), thetaD = 200, thetaT = 200)$state_id, c(rep(1, 11), rep(2, 13), rep(3, 3)))
+  testthat::expect_equal(stopFinder(copy(df), thetaD = 200, thetaT = 200)$state, c(rep("moving", 11), rep("stopped", 13), rep("moving", 3)))
   testthat::expect_equal(stopFinder(copy(df), thetaD = 300, thetaT = 400)$state_id, c(rep(1, 9), rep(2, 18)))
 })
