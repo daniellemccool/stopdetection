@@ -36,3 +36,5 @@ Depends:
     R (>= 2.10)
 LazyData: true
 VignetteBuilder: knitr
+URL: https://github.com/daniellemccool/stopdetection
+BugReports: https://github.com/daniellemccool/stopdetection/issues
