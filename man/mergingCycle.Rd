@@ -38,7 +38,7 @@ library(data.table)
 data(loc_data_2019); setDT(loc_data_2019)
 # Find initial set of stops
 stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)
-# This selection contains a short track to eliminate and two stops to merge
+# This selection contains two short tracks to eliminate and two stops to merge
 example <- copy(loc_data_2019[state_id \%between\% c(1, 11)])
 events_pre_merge <- returnStateEvents(example)
 # Perform the merging
