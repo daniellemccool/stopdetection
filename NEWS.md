@@ -1,4 +1,4 @@
-# stopdetection (development version)
+# stopdetection 0.1.2
 
 # stopdetection 0.1.1
 
