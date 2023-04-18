@@ -58,12 +58,12 @@ updateDataWithEvents <- function(res, events){
 #' # Find initial set of stops
 #' stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)
 #' # This selection contains a short track to eliminate and two stops to merge
-#' example <- copy(loc_data_2019[state_id %between% c(1, 10)])
+#' example <- copy(loc_data_2019[state_id %between% c(1, 11)])
 #' events_pre_merge <- returnStateEvents(example)
 #' # Perform the merging
-#' mergingCycle(example, thetaD = 200, small_track_action = "exclude")
+#' mergingCycle(example, thetaD = 200, small_track_action = "exclude", max_locs = Inf)
 #' events_post_merge <- returnStateEvents(example)
-#' # From 10 states to 8 states
+#' # From 11 states to 8 states
 #' events_pre_merge[, .(state_id, state, meanlat, meanlon, n_locations)]
 #' events_post_merge[, .(state_id, state, meanlat, meanlon, n_locations)]
 mergingCycle <- function(res, max_merges = Inf, thetaD = 200, small_track_action = "merge", ...){
