@@ -21,20 +21,16 @@
 #' returnStateEvents(loc_data_2019)
 returnStateEvents <- function(dt) {
   res <- copy(dt)
-  # set(res,
-  #     j = c("timedif",
-  #           "state_id",
-  #           "move_id"),
-  #     value = list(
-  #       splitDiffTime(res[["timestamp"]]),
-  #       rleid(res[["stop_initiation_idx"]]),
-  #       NA_integer_
-  #     ))
 
   is_stop <- res[["state"]] == "stopped"
   is_move <- res[["state"]] == "moving"
   move_idx <- which(is_move)
   stop_idx <- which(is_stop)
+
+  data.table::set(res,
+    j = c("move_id", "stop_id", "raw_travel_dist", "meanlat", "meanlon"),
+    value = list(NA_integer_, NA_integer_, NA_real_, NA_real_, NA_real_)
+  )
 
   data.table::set(res,
     i = move_idx,
@@ -48,34 +44,12 @@ returnStateEvents <- function(dt) {
     value = list(rleid(res[["state_id"]][stop_idx]), "stopped")
   )
 
-  if (length(move_idx) == 0) data.table::set(res, j = c("move_id", "raw_travel_dist"), value = list(NA_integer_, NA_real_))
-  if (length(stop_idx) == 0) data.table::set(res, j = c("stop_id", "meanlat", "meanlon"), value = list(NA_integer_, NA_real_, NA_real_))
-
-
   if (length(move_idx) > 0) {
     res[move_idx, raw_travel_dist := {
-      if (.N < 2) {
-        0
-      } else {
-        sum(c(haversine_seq(as.numeric(latitude), as.numeric(longitude))))
-      }
+      if (.N < 2) 0.0 else sum(haversine_seq(as.numeric(latitude), as.numeric(longitude)))
     }, by = move_id]
   }
 
-  # if (length(move_idx) > 0) {
-  #   res[(move_idx), raw_travel_dist := sum(
-  #     haversine_seq(latitude, longitude)
-  #   ), move_id]
-  # }
-
-  # res[(move_idx), raw_travel_dist := sum(
-  #   geodist::geodist_vec(
-  #     longitude,
-  #     latitude,
-  #     sequential = TRUE,
-  #     measure = "haversine"
-  #   )
-  # ), move_id]
 
   res[
     state != "excluded",
