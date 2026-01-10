@@ -19,38 +19,30 @@
 #'
 #' @return Modifies events data.table by reference
 
-moveMerger <- function(events, small_track_action = "merge", max_locs = 1, max_time = 600, max_dist = 100){
-  # condition <- events[n_locations <= max_locs & ts <= max_time, which = TRUE]
-  # set(events,
-  #     j = c("new_stop_id",
-  #           "new_within_stop"),
-  #     value = list(events[["new_stop_id"]],
-  #                  !is.na(events[["stop_id"]]))
-  # )
-  # set(events,
-  #     j = "new_stop_id",
-  #     value = events[["new_stop_id"]]
-  #     )
-
+moveMerger <- function(events, small_track_action = "merge", max_locs = 1, max_time = 600, max_dist = 100) {
   events[, mergeable := FALSE]
-  events[state == "moving",
-         mergeable := n_locations <= max_locs &
-           ((end_time - begin_time) <= max_time) &
-           (raw_travel_dist <= max_dist | is.na(raw_travel_dist))]
+  events[
+    state == "moving",
+    mergeable := n_locations <= max_locs &
+      ((end_time - begin_time) <= max_time) &
+      (raw_travel_dist <= max_dist | is.na(raw_travel_dist))
+  ]
   events[, `:=`(
     new_state_id = new_state_id - cumsum(mergeable),
     new_state = state
   )]
 
   if (small_track_action == "merge") {
-    events[mergeable == TRUE, `:=`(new_state = "stopped"
-    )]
+    events[mergeable == TRUE, `:=`(new_state = "stopped")]
     events[, mergeable := NULL]
   } else if (small_track_action == "exclude") {
-    events[mergeable == TRUE,
-           `:=`(new_state = "excluded",
-                new_state_id = NA)]
-    # events[, mergeable := NULL]
+    events[
+      mergeable == TRUE,
+      `:=`(
+        new_state = "excluded",
+        new_state_id = NA
+      )
+    ]
   }
   events[]
 }

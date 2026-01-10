@@ -4,7 +4,7 @@
 \alias{radiusOfGyrationDT}
 \title{Radius of Gyration}
 \usage{
-radiusOfGyrationDT(lat_col, lon_col, timestamp, dist_measure = "geodesic")
+radiusOfGyrationDT(lat_col, lon_col, timestamp)
 }
 \arguments{
 \item{lat_col}{Time-ordered vector of latitudes}
@@ -12,10 +12,6 @@ radiusOfGyrationDT(lat_col, lon_col, timestamp, dist_measure = "geodesic")
 \item{lon_col}{Time-ordered vector of longitudes}
 
 \item{timestamp}{Timestamps associated with the latitude/longitude pairs}
-
-\item{dist_measure}{Passed through to geodist::geodist_vec, One of
-"haversine" "vincenty", "geodesic", or "cheap" specifying desired method of
-geodesic distance calculation.}
 }
 \value{
 Time-weighted radius of gyration
@@ -47,5 +43,5 @@ radiusOfGyrationDT(
   c(1, 1, 1, 1, 1),
   c(1, 1.5, 4, 1.5, 2),
   c(100, 200, 300, 600, 900)
-  )
+)
 }

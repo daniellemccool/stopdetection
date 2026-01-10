@@ -8,3 +8,9 @@
 inst/doc
 /doc/
 /Meta/
+src/*.o
+src/*.so
+src/*.dll
+cran-comments.md
+CRAN-SUBMISSION
+*.Rproj

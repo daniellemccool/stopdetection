@@ -42,7 +42,7 @@ data.table::set(sm,
       sm[["latitude"]][1]))
 # sm[, lon1 := longitude[1]]
 # sm[, lat1 := latitude[1]]
-sm[, dist := geodist::geodist_vec(x1 = lon1, y1 = lat1, x2 = longitude, y2 = latitude, measure = "geodesic", paired = TRUE, pad = TRUE)]
+sm[, dist := haversine_vec(lat1, lon1, latitude, longitude)]
 with(sm, {
   plot(longitude, latitude, asp=1, main = "Impact of deltaD parameter", sub = "Red: 100m, blue: 200m, green: 500m", type = "b")
   points(longitude[dist < 100], latitude[dist < 100], col = "red")

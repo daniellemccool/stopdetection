@@ -14,26 +14,28 @@ mergeStopsAndCleanTracks <- function(events, thetaD, small_track_action = "merge
   moveMerger(events, small_track_action = small_track_action, ...)
 }
 
-updateDataWithEvents <- function(res, events){
-
-  res[events, `:=`(state_id = i.new_state_id,
-                   state = i.new_state), on = .(state_id)]
+updateDataWithEvents <- function(res, events) {
+  res[events, `:=`(
+    state_id = i.new_state_id,
+    state = i.new_state
+  ), on = .(state_id)]
 
   is_stop <- res[["state"]] == "stopped"
   is_move <- res[["state"]] == "moving"
   move_idx <- which(is_move)
   stop_idx <- which(is_stop)
 
-  set(res,
-      i = stop_idx,
-      j = "stop_id",
-      value = rleid(res[["state_id"]][stop_idx]))
+  data.table::set(res,
+    i = stop_idx,
+    j = "stop_id",
+    value = rleid(res[["state_id"]][stop_idx])
+  )
 
-  set(res,
-      i = move_idx,
-      j = "move_id",
-      value = rleid(res[["state_id"]][move_idx]))
-
+  data.table::set(res,
+    i = move_idx,
+    j = "move_id",
+    value = rleid(res[["state_id"]][move_idx])
+  )
 }
 
 #' Merging Cycle
@@ -54,7 +56,8 @@ updateDataWithEvents <- function(res, events){
 #' @examples
 #' # Load data
 #' library(data.table)
-#' data(loc_data_2019); setDT(loc_data_2019)
+#' data(loc_data_2019)
+#' setDT(loc_data_2019)
 #' # Find initial set of stops
 #' stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)
 #' # This selection contains two short tracks to eliminate and two stops to merge
@@ -66,8 +69,8 @@ updateDataWithEvents <- function(res, events){
 #' # From 11 states to 8 states
 #' events_pre_merge[, .(state_id, state, meanlat, meanlon, n_locations)]
 #' events_post_merge[, .(state_id, state, meanlat, meanlon, n_locations)]
-mergingCycle <- function(res, max_merges = Inf, thetaD = 200, small_track_action = "merge", ...){
-  i       <- 1
+mergingCycle <- function(res, max_merges = Inf, thetaD = 200, small_track_action = "merge", ...) {
+  i <- 1
   changed <- TRUE
 
   while (i <= max_merges && changed == TRUE) {
@@ -77,6 +80,4 @@ mergingCycle <- function(res, max_merges = Inf, thetaD = 200, small_track_action
     updateDataWithEvents(res, events)
     i <- i + 1
   }
-
 }
-

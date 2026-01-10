@@ -1,37 +1,45 @@
-## Bug-fix 
-
-## Test environments
-- R-hub windows-x86_64-devel (r-devel)
-- R-hub ubuntu-gcc-release (r-release)
-- R-hub fedora-clang-devel (r-devel)
-
 ## R CMD check results
-❯ On windows-x86_64-devel (r-devel)
-  checking CRAN incoming feasibility ... [15s] NOTE
-  Maintainer: 'McCool Danielle <d.m.mccool@uu.nl>'
-  
-  Days since last update: 2
 
-❯ On windows-x86_64-devel (r-devel)
-  checking for detritus in the temp directory ... NOTE
-  Found the following files/directories:
-    'lastMiKTeXException'
+0 errors | 0 warnings | 0 notes
 
-❯ On ubuntu-gcc-release (r-release)
-  checking CRAN incoming feasibility ... NOTE
-  Maintainer: ‘McCool Danielle <d.m.mccool@uu.nl>’
-  
-  Days since last update: 2
 
-❯ On fedora-clang-devel (r-devel)
-  checking CRAN incoming feasibility ... [8s/25s] NOTE
-  Maintainer: ‘McCool Danielle <d.m.mccool@uu.nl>’
-  
-  Days since last update: 2
+## winbuilder results
+* using R version 4.3.0 RC (2023-04-13 r84270 ucrt)
+* using platform: x86_64-w64-mingw32 (64-bit)
+Status: OK
 
-❯ On fedora-clang-devel (r-devel)
-  checking HTML version of manual ... NOTE
-  Skipping checking HTML validation: no command 'tidy' found
-  Skipping checking math rendering: package 'V8' unavailable
+## rhub
 
-0 errors ✔ | 0 warnings ✔ | 5 notes ✖
+## Platform:	Fedora Linux, R-devel, clang, gfortran
+
+Status: 1 NOTE
+
+* checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
+Skipping checking math rendering: package 'V8' unavailable
+
+## Platform:	Ubuntu Linux 20.04.1 LTS, R-release, GCC
+
+Status: 1 NOTE
+
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘McCool Danielle <d.m.mccool@uu.nl>’
+
+Found the following (possibly) invalid DOIs:
+  DOI: 10.1109/MDM.2009.11
+    From: DESCRIPTION
+    Message: 418
+
+DOI is valid, unsure how to resolve
+
+## Platform:	Windows Server 2022, R-devel, 64 bit
+
+Status: 1 NOTE
+
+* checking HTML version of manual ... NOTE
+Skipping checking math rendering: package 'V8' unavailable
+* checking for detritus in the temp directory ... NOTE
+Found the following files/directories:
+  'lastMiKTeXException'
+
+Apparently a known issue with Rhub

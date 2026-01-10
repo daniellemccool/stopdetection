@@ -1,6 +1,7 @@
 Package: stopdetection
 Title: Stop Detection in Timestamped Trajectory Data using Spatiotemporal Clustering
-Version: 0.1.2
+Version: 0.1.3
+Date: 2026-01-08
 Authors@R: 
     person("McCool", "Danielle", , "d.m.mccool@uu.nl", role = c("aut", "cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-7055-7539"))
@@ -21,19 +22,22 @@ Description: Trajectory data formed by human or animal movement is often marked
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3
 Suggests: 
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Depends: 
+    R (>= 3.5.0)
 Imports: 
     data.table,
-    geodist,
     lubridate,
-    stats
-Depends: 
-    R (>= 2.10)
+    stats,
+    Rcpp (>= 1.0.0),
+    lifecycle
+LinkingTo:
+    Rcpp
 LazyData: true
 VignetteBuilder: knitr
 URL: https://github.com/daniellemccool/stopdetection

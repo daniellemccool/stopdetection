@@ -22,14 +22,18 @@ df <- data.frame(
 )
 setDT(df)
 
-testthat::test_that("stopFinder correctly clusters the stops and tracks", {
-  testthat::expect_equal(stopFinder(copy(df), thetaD = 200, thetaT = 200)$state_id, c(rep(1, 11), rep(2, 13), rep(3, 3)))
-  testthat::expect_equal(stopFinder(copy(df), thetaD = 200, thetaT = 200)$state, c(rep("moving", 11), rep("stopped", 13), rep("moving", 3)))
-  testthat::expect_equal(stopFinder(copy(df), thetaD = 300, thetaT = 400)$state_id, c(rep(1, 9), rep(2, 18)))
+testthat::test_that("stopFinderFast correctly clusters the stops and tracks", {
+  testthat::expect_equal(stopFinderFast(copy(df), thetaD = 200, thetaT = 200)$state_id, c(rep(1, 11), rep(2, 13), rep(3, 3)))
+  testthat::expect_equal(stopFinderFast(copy(df), thetaD = 200, thetaT = 200)$state, c(rep("moving", 11), rep("stopped", 13), rep("moving", 3)))
+  testthat::expect_equal(stopFinderFast(copy(df), thetaD = 300, thetaT = 400)$state_id, c(rep(1, 9), rep(2, 18)))
 })
 
-test_that("stopFinder handles empty data", {
+testthat::test_that("stopFinderFast handles empty data", {
   empty_dt <- data.table(matrix(nrow = 0, ncol = 3))
   setnames(empty_dt, c("longitude", "latitude", "timestamp"))
-  expect_silent(stopFinder(empty_dt, 100, 300))
+  testthat::expect_silent(stopFinderFast(empty_dt, 100, 300))
+})
+
+testthat::test_that("stopFinderFast is identical to stopFinder", {
+  testthat::expect_equal(stopFinderFast(copy(df), thetaD = 200, thetaT = 200)$state_id, stopFinder(copy(df), thetaD = 200, thetaT = 200)$state_id)
 })

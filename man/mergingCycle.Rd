@@ -35,7 +35,8 @@ number of merges are met.
 \examples{
 # Load data
 library(data.table)
-data(loc_data_2019); setDT(loc_data_2019)
+data(loc_data_2019)
+setDT(loc_data_2019)
 # Find initial set of stops
 stopFinder(loc_data_2019, thetaD = 200, thetaT = 300)
 # This selection contains two short tracks to eliminate and two stops to merge

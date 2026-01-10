@@ -1,15 +1,15 @@
-haversinem <- function(mat){
-  newmat <- mat*pi/180
+haversinem <- function(mat) {
+  newmat <- mat * pi / 180
   x <- (newmat[2, 1] - newmat[1, 1]) *
-    cos(0.5*(newmat[1, 2] + newmat[2, 2]))
+    cos(0.5 * (newmat[1, 2] + newmat[2, 2]))
   y <- newmat[2, 2] - newmat[1, 2]
   6371000 * sqrt(x^2 + y^2)
 }
 
-splitDiffTime <- function(timestamp){
-  N       <- length(timestamp)
+splitDiffTime <- function(timestamp) {
+  N <- length(timestamp)
 
-  timedif    <- lubridate::time_length(timestamp - shift(timestamp))
+  timedif <- lubridate::time_length(timestamp - shift(timestamp))
   timedifsec <- (timedif + shift(timedif, -1)) / 2
   timedifsec[c(1L, N)] <- c(timedif[2L] / 2L, timedif[N] / 2L)
   timedifsec
@@ -32,13 +32,9 @@ splitDiffTime <- function(timestamp){
 #' @param lat_col Time-ordered vector of latitudes
 #' @param lon_col Time-ordered vector of longitudes
 #' @param timestamp Timestamps associated with the latitude/longitude pairs
-#' @param dist_measure Passed through to geodist::geodist_vec, One of
-#' "haversine" "vincenty", "geodesic", or "cheap" specifying desired method of
-#' geodesic distance calculation.
 #'
 #' @return Time-weighted radius of gyration
 #' @export
-#' @importFrom geodist geodist_vec
 #' @importFrom stats weighted.mean
 #' @import data.table
 #' @examples
@@ -54,24 +50,19 @@ splitDiffTime <- function(timestamp){
 #'   c(1, 1, 1, 1, 1),
 #'   c(1, 1.5, 4, 1.5, 2),
 #'   c(100, 200, 300, 600, 900)
-#'   )
-radiusOfGyrationDT <- function(lat_col, lon_col, timestamp, dist_measure = "geodesic") {
-
+#' )
+radiusOfGyrationDT <- function(lat_col, lon_col, timestamp) {
   timedifsec <- splitDiffTime(timestamp)
-  N          <- length(timedifsec)
-  meanlat    <- weighted.mean(lat_col, timedifsec)
-  meanlon    <- weighted.mean(lon_col, timedifsec)
-  dist    <-
-    geodist::geodist_vec(
-      x1 = rep(meanlon, N),
-      y1 = rep(meanlat, N),
-      x2 = lon_col,
-      y2 = lat_col,
-      paired = TRUE,
-      measure = dist_measure
-    )
+  N <- length(timedifsec)
+  meanlat <- weighted.mean(lat_col, timedifsec)
+  meanlon <- weighted.mean(lon_col, timedifsec)
 
-  sqrt(1/sum(timedifsec) * sum(timedifsec * dist^2))
+  dist <- haversine_vec(
+    lat1 = rep(meanlat, N),
+    lon1 = rep(meanlon, N),
+    lat2 = lat_col,
+    lon2 = lon_col
+  )
+
+  sqrt(1 / sum(timedifsec) * sum(timedifsec * dist^2))
 }
-
-`.` <- list
