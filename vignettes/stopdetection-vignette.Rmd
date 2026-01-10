@@ -44,7 +44,7 @@ data.table::set(sm,
 # sm[, lat1 := latitude[1]]
 sm[, dist := haversine_vec(lat1, lon1, latitude, longitude)]
 with(sm, {
-  plot(longitude, latitude, asp=1, main = "Impact of deltaD parameter", sub = "Red: 100m, blue: 200m, green: 500m", type = "b")
+  plot(longitude, latitude, asp = 1, main = "Impact of deltaD parameter", sub = "Red: 100m, blue: 200m, green: 500m", type = "b")
   points(longitude[dist < 100], latitude[dist < 100], col = "red")
   points(lon1[1], lat1[1], col = "red", cex = 15)
   points(longitude[dist > 100 & dist < 200], latitude[dist > 100 & dist < 200], col = "blue")

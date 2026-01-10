@@ -53,10 +53,20 @@ returnStateEvents <- function(dt) {
 
 
   if (length(move_idx) > 0) {
-    res[(move_idx), raw_travel_dist := sum(
-      haversine_seq(latitude, longitude)
-    ), move_id]
+    res[move_idx, raw_travel_dist := {
+      if (.N < 2) {
+        0
+      } else {
+        sum(c(haversine_seq(as.numeric(latitude), as.numeric(longitude))))
+      }
+    }, by = move_id]
   }
+
+  # if (length(move_idx) > 0) {
+  #   res[(move_idx), raw_travel_dist := sum(
+  #     haversine_seq(latitude, longitude)
+  #   ), move_id]
+  # }
 
   # res[(move_idx), raw_travel_dist := sum(
   #   geodist::geodist_vec(
