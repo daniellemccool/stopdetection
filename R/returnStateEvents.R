@@ -49,7 +49,7 @@ returnStateEvents <- function(dt) {
   )
 
   if (length(move_idx) == 0) data.table::set(res, j = c("move_id", "raw_travel_dist"), value = list(NA_integer_, NA_real_))
-  if (length(stop_idx) == 0) data.table::set(res, j = "stop_id", value = NA_integer_)
+  if (length(stop_idx) == 0) data.table::set(res, j = c("stop_id", "meanlat", "meanlon"), value = list(NA_integer_, NA_real_, NA_real_))
 
 
   if (length(move_idx) > 0) {

@@ -68,7 +68,7 @@ NumericVector haversine_seq(NumericVector lat, NumericVector lon) {
   int n = lat.size();
 
   if (n < 2) {
-    return NumericVector(0);  // Return empty vector for < 2 points
+    return NumericVector::create(0.0);  // Return 0
   }
 
   if (lon.size() != n) {
