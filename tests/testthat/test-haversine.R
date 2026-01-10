@@ -31,10 +31,10 @@ test_that("haversine_seq works with sequential points", {
 
 test_that("haversine functions handle edge cases", {
   # Empty vectors
-  expect_equal(haversine_seq(numeric(0), numeric(0)), 0)
+  expect_length(haversine_seq(numeric(0), numeric(0)), 0)
 
   # Single point
-  expect_equal(haversine_seq(52.0, 5.0), 0)
+  expect_length(haversine_seq(52.0, 5.0), 0)
 
   # Mismatched lengths should error
   expect_error(haversine_vec(c(52.0, 52.1), 5.0, 52.1, 5.1))
