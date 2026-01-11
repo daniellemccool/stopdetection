@@ -1,45 +1,23 @@
-## R CMD check results
+## Resubmission
 
-0 errors | 0 warnings | 0 notes
+This is a resubmission of stopdetection after being archived in January 2025
+due to undefined behaviour and illegal memory access detected by UBSAN
+and R-devel checks.
 
+The root cause was an unsafe dependency on the geodist package, which
+performed illegal memory accesses in its C code. That dependency has been
+removed and replaced with a custom Rcpp Haversine implementation.
 
-## winbuilder results
-* using R version 4.3.0 RC (2023-04-13 r84270 ucrt)
-* using platform: x86_64-w64-mingw32 (64-bit)
-Status: OK
+In addition, a memory-unsafe data.table column assignment pattern was
+fixed by preallocating columns before assignment.
 
-## rhub
+The package has been checked under:
+* R-devel m1-san (ASAN + UBSAN)
+* GCC UBSAN
+* Valgrind (only “possibly lost” TLS allocations originating from libgomp /
+  data.table; no definite leaks or invalid reads/writes attributable to
+  stopdetection)
+* rhub Linux and macOS
 
-## Platform:	Fedora Linux, R-devel, clang, gfortran
-
-Status: 1 NOTE
-
-* checking HTML version of manual ... NOTE
-Skipping checking HTML validation: no command 'tidy' found
-Skipping checking math rendering: package 'V8' unavailable
-
-## Platform:	Ubuntu Linux 20.04.1 LTS, R-release, GCC
-
-Status: 1 NOTE
-
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: ‘McCool Danielle <d.m.mccool@uu.nl>’
-
-Found the following (possibly) invalid DOIs:
-  DOI: 10.1109/MDM.2009.11
-    From: DESCRIPTION
-    Message: 418
-
-DOI is valid, unsure how to resolve
-
-## Platform:	Windows Server 2022, R-devel, 64 bit
-
-Status: 1 NOTE
-
-* checking HTML version of manual ... NOTE
-Skipping checking math rendering: package 'V8' unavailable
-* checking for detritus in the temp directory ... NOTE
-Found the following files/directories:
-  'lastMiKTeXException'
-
-Apparently a known issue with Rhub
+No UBSAN, ASAN or valgrind errors have been observed in stopdetection’s
+compiled code.

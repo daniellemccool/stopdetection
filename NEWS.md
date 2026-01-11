@@ -2,15 +2,15 @@
 
 ## New Features
 
-* Replaced geodist dependency with custom C++ haversine implementation for
-  faster distance calculations and better control over edge cases
+* Added experimental C++ implementation of stopFinder, stopFinderFast
 
-## Bug Fixes
+## Bug fixes and stability
 
-* Fixed critical issue where `.` was redefined in utils.R, causing NULL coercion 
-  errors in data.table printing functions on CRAN's fedora-gcc test environment 
-* Changed `NA` to `NA_integer_` in returnStateEvents.R for type safety concerns
-* Removed commented-out legacy code for cleaner codebase
+* Replaced geodist dependency with custom C++ haversine implementation to
+  remove illegal memory access in upstream code.
+* Fixed memory-unsafe data.table column assignment that caused crashes under
+  R-devel and UBSAN.
+* Package now clean under ASAN, UBSAN and valgrind.
 
 ---
 
